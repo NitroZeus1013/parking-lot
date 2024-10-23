@@ -8,11 +8,13 @@ class ParkingLot
 {
     std::vector<ILevel *> levels;
     int levelIndex = 0;
+    static ParkingLot *instance;
 
 public:
-    ParkingLot(int levelCount);
     ~ParkingLot();
     void addLevel(ILevel *lv);
     void assignSpot(std::string vin, VType type);
     void releaseSpot(std::string vin);
+    void init(int);
+    static ParkingLot *getInstance();
 };

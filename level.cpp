@@ -2,30 +2,22 @@
 #include "level.hpp"
 #include "Spot.hpp"
 
-Level::Level(int levelNumber, int spotCount)
+// this does not follows OCP
+Level::Level(int levelNumber, int spotCount, std::vector<std::pair<VType, float>> spotConfig)
 {
     this->levelNumber = levelNumber;
     this->spots.resize(spotCount);
 
-    // add spots in 5,3,2 ratio
-    int carsCount = spotCount * 0.5;
-    int bikesCount = spotCount * 0.3;
-    int truckCount = spotCount * 0.2;
-    // we can use Factory here
-    for (int i = 0; i < carsCount; i++)
+    // we can use Factory here but creation is so simple it'll add unecessary complexity
+    int index = 0;
+    for (std::pair<VType, float> v : spotConfig)
     {
-        Spot *sp = new Spot(VType::CAR);
-        this->addSpot(sp, i);
-    }
-    for (int i = 0; i < bikesCount; i++)
-    {
-        Spot *sp = new Spot(VType::BIKE);
-        this->addSpot(sp, carsCount + i);
-    }
-    for (int i = 0; i < truckCount; i++)
-    {
-        Spot *sp = new Spot(VType::TRUCK);
-        this->addSpot(sp, i + carsCount + bikesCount);
+        int requiredSpotCount = spotCount * v.second;
+        for (; index < requiredSpotCount; index++)
+        {
+            Spot *sp = new Spot(v.first);
+            this->addSpot(sp, index);
+        }
     }
 }
 Level::~Level()

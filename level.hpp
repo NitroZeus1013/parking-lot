@@ -7,7 +7,7 @@ class Level : public ILevel
     int levelNumber;
 
 public:
-    Level(int levelNumber, int spotCount);
+    Level(int, int, std::vector<std::pair<VType, float>>);
     ~Level();
     void addSpot(ISpot *spot, int index);
     ISpot *findAvailableSpot();

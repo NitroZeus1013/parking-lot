@@ -4,11 +4,21 @@
 #include "parking-lot.hpp"
 #include <stdexcept>
 
-// make it singleton
+ParkingLot *ParkingLot::instance = nullptr;
 
-ParkingLot::ParkingLot(int levelCount)
+void ParkingLot::init(int levelCount)
 {
     this->levels.resize(levelCount);
+}
+
+ParkingLot *ParkingLot::getInstance()
+{
+    if (instance == nullptr)
+    {
+        instance = new ParkingLot();
+    }
+
+    return instance;
 }
 ParkingLot::~ParkingLot()
 {
